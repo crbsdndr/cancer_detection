@@ -6,27 +6,27 @@ This project implements a machine learning model to detect potential lung cancer
 ## Setup & Installation
 
 ### Prerequisites
-- Python 3.8 or higher
-- pip package manager
+- Python 3.12 or higher
+- PIP Package Manager
 
 ### Installation Steps
 
 1. **Clone the repository**
 ```bash
-git clone [repository-url]
+git clone https://github.com/crbsdndr/cancer_detection
 cd lung_cancer_detection
 ```
 
 2. **Create and activate virtual environment**
 ```bash
 # Create virtual environment
-python -m venv venv
+python -m venv cancer_detection
 
 # Activate virtual environment
 # On Windows:
-venv\Scripts\activate
+cancer_detection\Scripts\activate
 # On Linux/Mac:
-source venv/bin/activate
+source cancer_detection/bin/activate
 ```
 
 3. **Install required packages**
@@ -63,8 +63,8 @@ patient_data = pd.DataFrame({
 })
 
 # Normalize age (required preprocessing)
-min_age = 21
-max_age = 80
+min_age = 1
+max_age = 100
 patient_data['age'] = (patient_data['age'] - min_age) / (max_age - min_age)
 
 # Get prediction
@@ -77,7 +77,7 @@ print(f"Lung Cancer Prediction: {result}")
 The model is also available through a FastAPI REST API in the `api/` directory. See `api/main.py` for implementation details.
 
 ### Input Features
-- `age`: Patient's age (must be between 21-80 years)
+- `age`: Patient's age (must be between 3-100 years)
 - Binary features (must be 0 or 1):
   - `smoking`: Smoking history
   - `yellow_fingers`: Presence of yellow fingers
@@ -111,7 +111,7 @@ lung_cancer_detection/
 
 ## Important Notes
 - Model accuracy: ~96%
-- Age must be between 21 and 80 years
+- Age must be between 1 and 100 years
 - All features except age must be binary (0 or 1)
 - The model is trained on both original and synthetic data for improved accuracy
 
