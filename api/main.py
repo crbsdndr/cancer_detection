@@ -13,7 +13,7 @@ from dotenv import load_dotenv # Added import
 # Call this BEFORE you try to access environment variables
 load_dotenv() # Added line
 
-# Basic Logging Configuration
+# Basic Logging Configuration 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
