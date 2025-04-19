@@ -48,7 +48,7 @@ To ensure quality and fairness:
 | Metric              | Value     |
 |---------------------|-----------|
 | Accuracy            | 96%       |
-| Mean Absolute Error | 0.45%     |
+| Mean Absolute Error | 0.05%     |
 
 ---
 
