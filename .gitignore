@@ -1,2 +1,2 @@
-api/.env
-api/__pycache__
+/capstone_environment
+/routes/__pycache__
