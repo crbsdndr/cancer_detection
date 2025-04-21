@@ -1,5 +1,3 @@
-Here's a significantly improved and professional version of your repository documentation:
-
 ---
 
 # **Lung Cancer Prediction Repository Guide**  
