@@ -1,8 +1,6 @@
----
-
 # **Lung Cancer Prediction Repository Guide**  
-**Version:** 1.1  
-**Last Updated:** [Date]  
+**Version:** 2.0  
+**Last Updated:** 22/04/2025
 
 ---
 
