@@ -1,5 +1,3 @@
----
-
 # **Lung Cancer Prediction API**  
 **Version:** 2.0  
 **Last Updated:** 22/04/2025  
