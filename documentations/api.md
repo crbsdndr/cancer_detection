@@ -23,13 +23,13 @@ A RESTful API for lung cancer risk assessment using a TensorFlow neural network 
 - Python 3.12.9+  
 - Required packages:  
   ```bash
-  pip install fastapi uvicorn tensorflow pandas numpy scikit-learn pydantic python-dotenv
+  pip install -r requirements.txt
   ```
 
 ### **2.2 Setup**  
 1. Clone repository:  
    ```bash
-   git clone [your-repo-url]
+   git clone https://github.com/crbsdndr/cancer_detection.git
    ```
 2. File structure:  
    ```
