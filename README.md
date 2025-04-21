@@ -1,4 +1,4 @@
-Welcome to the documentation for **Lung Cancer Detection**!  
+Welcome to the documentation for **Cancer Detection**!  
 Use the links below to explore each section of the documentation.
 
 - [📝 Introduction](https://github.com/crbsdndr/cancer_detection/blob/main/documentations/about.md)
