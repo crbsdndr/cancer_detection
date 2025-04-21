@@ -1,8 +1,6 @@
----
-
 # **Lung Cancer Prediction Model: MLP_Enhanced_v2**  
-**Documentation Version: 1.1**  
-**Last Updated: [Date]**  
+**Documentation Version: 2.0**  
+**Last Updated: 22/04/2025**  
 
 ---
 
