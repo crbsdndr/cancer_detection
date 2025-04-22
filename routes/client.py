@@ -1,73 +1,67 @@
+from dotenv import load_dotenv
 import requests
 import json
 import os
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Get API key from environment
-api_key = os.getenv("API_KEY")  # Pastikan key ini sesuai dengan nama di file .env
-
-# API endpoint for lung cancer prediction
-api_url = "http://127.0.0.1:8000/predict/"
-
-# Sample data for testing the prediction API
-sample_data = {
-    "age": 1,
-    "smoking": True,
-    "yellow_fingers": False,
-    "anxiety": False,
-    "peer_pressure": False,
-    "chronic_disease": False,
-    "fatigue": False,
-    "allergy": False,
-    "wheezing": False,
-    "alcohol_consuming": False,
-    "coughing": False,
-    "shortness_of_breath": False,
-    "swallowing_difficulty": False,
-    "chest_pain": False
-}
-
-def test_prediction():
-    """
-    Test function to send a POST request to the prediction API and handle responses.
-    Prints the prediction result or error details if the request fails.
-    """
-    try:
-        headers = {
+class CancerAPIClient:
+    def __init__(self):
+        load_dotenv()
+        self.url = "http://127.0.0.1:8000/predict_and_explain"
+        self.api_key = os.getenv("API_KEY")
+        self.headers = {
             "Content-Type": "application/json",
-            "X-API-KEY": api_key  # Ini sesuai dengan permintaan Anda
+            "X-API-Key": self.api_key
         }
+        self._validate_config()
 
-        # Send POST request with sample data and headers
-        response = requests.post(api_url, json=sample_data, headers=headers)
-        response.raise_for_status()  # Raise exception for HTTP errors
+    def _validate_config(self):
+        if not self.api_key:
+            print("Error: API_KEY not found in environment")
+            exit(1)
 
-        # Process successful response
-        prediction_result = response.json()
-        print("Request successful!")
-        print("Prediction response:")
-        print(json.dumps(prediction_result, indent=4))
+    def _handle_error(self, e):
+        error_msg = f"Request failed: {str(e)}"
+        if isinstance(e, requests.exceptions.RequestException) and e.response:
+            error_msg += f"\nStatus: {e.response.status_code}"
+            try:
+                error_msg += f"\nResponse: {e.response.json()}"
+            except ValueError:
+                error_msg += f"\nResponse: {e.response.text}"
+        print(error_msg)
 
-    except requests.exceptions.ConnectionError as conn_err:
-        print(f"Connection error: Could not connect to the server at {api_url}")
-        print("Please ensure the FastAPI server is running.")
-        
-    except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
-        print(f"Status Code: {response.status_code}")
+    def predict(self, data):
         try:
-            print(f"Error Detail: {response.json()}")
-        except json.JSONDecodeError:
-            print(f"Response Content: {response.text}")
-            
-    except requests.exceptions.RequestException as req_err:
-        print(f"An error occurred during the request: {req_err}")
-        
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+            response = requests.post(
+                self.url,
+                headers=self.headers,
+                json=data  # Gunakan parameter json untuk auto-serialization
+            )
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            self._handle_error(e)
+            return None
 
 if __name__ == "__main__":
-    test_prediction()
+    client = CancerAPIClient()
+    
+    sample_data = {
+        "age": 70,
+        "smoking": False,
+        "yellow_fingers": True,
+        "anxiety": True,
+        "peer_pressure": False,
+        "chronic_disease": True,
+        "fatigue": True,
+        "allergy": False,
+        "wheezing": False,
+        "alcohol_consuming": True,
+        "coughing": False,
+        "shortness_of_breath": False,
+        "swallowing_difficulty": True,
+        "chest_pain": False
+    }
+
+    if result := client.predict(sample_data):
+        print("Prediction Result:")
+        print(json.dumps(result, indent=2))
